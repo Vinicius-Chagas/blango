@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from blog.models import Post
 from django import template
 from django.utils.html import format_html
 
@@ -25,5 +26,34 @@ def author_details(author, current_user=None):
     prefix = ""
     suffix = ""
 
-  
   return format_html('{}{}{}', prefix, name, suffix)
+
+@register.inclusion_tag("blog/post-list.html")
+def recent_posts(post):
+  posts = Post.objects.exclude(pk=post.pk)[:5]
+  return {"title": "Recent Posts", "posts":posts}
+
+@register.simple_tag
+def row(extra_classes=""):
+  return base_div("row",extra_classes)
+
+@register.simple_tag
+def endrow():
+    return base_end_div()
+
+@register.simple_tag
+def col(extra_classes=""):
+    return base_div("col",extra_classes)
+
+@register.simple_tag
+def endcol():
+    return base_end_div()
+
+@register.simple_tag
+def base_div(base_class="",extra_classes=""):
+    return format_html('<div class="{} {}">',base_class, extra_classes)
+
+
+@register.simple_tag
+def base_end_div():
+    return format_html("</div>")
