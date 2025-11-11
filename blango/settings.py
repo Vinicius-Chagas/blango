@@ -147,6 +147,13 @@ class Dev(Configuration):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-caching-name',
+        }
+    }
+
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
