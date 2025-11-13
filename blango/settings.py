@@ -53,7 +53,12 @@ class Dev(Configuration):
     SESSION_COOKIE_SAMESITE = 'None'
     CRISPY_ALLOWED_TEMPLATE_PACK = "bootstrap5"
 
+    SITE_ID = 1
 
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
     # Application definition
 
     INSTALLED_APPS = [
@@ -67,7 +72,12 @@ class Dev(Configuration):
         'crispy_forms',
         'crispy_bootstrap5',
         "debug_toolbar",
-        'blango_auth'
+        'blango_auth',
+        "django.contrib.sites",
+        "allauth",
+        "allauth.account",
+        "allauth.socialaccount",
+        "allauth.socialaccount.providers.google",
     ]
 
     MIDDLEWARE = [
