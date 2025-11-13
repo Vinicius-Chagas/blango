@@ -37,6 +37,10 @@ class Dev(Configuration):
       'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
     ]
 
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+    ACCOUNT_ACTIVATION_DAYS = 7
+
     AUTH_USER_MODEL = "blango_auth.User"
     
     ALLOWED_HOSTS = values.ListValue(["localhost", "0.0.0.0", ".codio.io"])    
