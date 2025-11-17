@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from blog.models import Post, Tag
-from blango_auth.models import User, Tag, Comment
+from blog.models import Post, Tag, Comment
+from blango_auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -15,7 +15,7 @@ class TagField(serializers.SlugRelatedField):
       self.fail(f"Tag value {data} is invalid")
 
 class CommentSerializer(serializers.ModelSerializer):
-  id = serializers.IntegratedField(required=False)
+  id = serializers.IntegerField(required=False)
   creator = UserSerializer(read_only=True)
 
   class Meta:
@@ -37,7 +37,7 @@ class PostSerializer(serializers.ModelSerializer):
     fields = "__all__"
     readonly = ["modified_at", "created_at"]
 
-class PostSerializer(PostSerializer):
+class PostDetailSerializer(PostSerializer):
   comments = CommentSerializer(many=True)
 
   def update(self, instance, validated_data):
@@ -53,3 +53,8 @@ class PostSerializer(PostSerializer):
       comment.save()
 
     return instance
+
+class TagSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Tag
+    fields = "__all__"
