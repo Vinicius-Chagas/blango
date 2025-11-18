@@ -15,6 +15,7 @@ from configurations import Configuration
 import os
 from configurations import values
 import dj_database_url
+from datetime import timedelta
 
 class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -87,8 +88,12 @@ class Dev(Configuration):
         "allauth.socialaccount.providers.google",
         "rest_framework",
         "rest_framework.authtoken",
-        "django_filters"
+        "django_filters",
+        "versatileimagefield"
     ]
+
+    MEDIA_ROOT = BASE_DIR / "media"
+    MEDIA_URL = "/media/"
 
     REST_FRAMEWORK = {
       "DEFAULT_PERMISSION_CLASSES": [
